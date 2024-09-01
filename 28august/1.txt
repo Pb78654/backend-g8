@@ -1,0 +1,79 @@
+mongod --version // to check database version
+
+mongosh --version // to check shell version
+
+mongosh // to start mongo shell in cmd
+
+use DATABASENAME // to create a database
+eg. use 28thAUGUST 
+
+show dbs// display all databases
+
+db.createCollection("User")  //to create a new empty collection
+
+//In MongoDB, a collection is a fundamental organizational unit used to store documents. 
+//to add a single data in a collection we use:
+db.myNewCollection.insertOne({ name: "User" })
+
+// to add many
+
+db.user.insertMany([
+    { name: "Alice", age: 30, subject: "Mathematics", marks: 95 },
+    { name: "Bob", age: 28, subject: "Physics", marks: 88 },
+    { name: "Carol", age: 35, subject: "Chemistry", marks: 92 },
+    { name: "David", age: 22, subject: "Biology", marks: 84 },
+    { name: "Eva", age: 27, subject: "Computer Science", marks: 91 }
+])
+
+db.student.insertMany([
+    { name: "Frank", age: 21, subject: "Mathematics", marks: 90 },
+    { name: "Grace", age: 23, subject: "Physics", marks: 89 },
+    { name: "Hannah", age: 20, subject: "Chemistry", marks: 85 },
+    { name: "Ivy", age: 22, subject: "Biology", marks: 91 },
+    { name: "Jack", age: 24, subject: "Computer Science", marks: 87 }
+])
+
+db.faculty.insertMany([
+    { name: "Karen", age: 45, subject: "Mathematics", rating: 4.9 },
+    { name: "Leo", age: 50, subject: "Physics", rating: 4.7 },
+    { name: "Mona", age: 42, subject: "Chemistry", rating: 4.8 },
+    { name: "Nina", age: 48, subject: "Biology", rating: 4.6 },
+    { name: "Oscar", age: 55, subject: "Computer Science", rating: 4.9 }
+])
+
+//to change one object in a collection
+db.student.updateMany(
+    {},  // Match all documents
+    { $set: { subject: "Data Science" } }  // Set subject to "Data Science"
+)
+
+//to add a field in a collection
+
+db.student.updateMany(
+    {},  // Match all documents
+    { $set: { address: "Chitkara University" } }  // Add address field
+)
+
+db.student.find() //find() returns all documents in the specified collection.
+
+
+db.student.findOne() //first document from the collection
+
+db.student.find({ name: "Hannah" })   //to search by a specific query 
+
+// ISODate(): This function generates the current date and time
+//insertOne(): This method is used to insert a single document into the collection. It takes one argument: the document to be inserted.
+db.student.insertOne({ date: ISODate() })
+
+//query selectors
+//use gte to compare marks and add grade
+db.student.updateMany(
+    { marks: { $gte: 91 } }, 
+    { $set: { grade: "A++" } }  
+)
+
+//one more example
+db.student.updateMany(
+    { marks: { $gte: 86, $lte: 90 } },
+    { $set: { grade: "A+" } }
+)
