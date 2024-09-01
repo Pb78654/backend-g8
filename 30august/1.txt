@@ -1,0 +1,154 @@
+//Here's how you can use the $and, $not, $nor, and $or operators in MongoDB with a student collection:
+
+$and
+The $and operator is used to combine multiple conditions. It returns documents that match all the conditions.
+Find students who are older than 20 and have marks greater than or equal to 90.
+
+db.student.find({
+    $and: [
+        { age: { $gt: 20 } },
+        { marks: { $gte: 90 } }
+    ]
+})
+
+$not
+The $not operator inverts the effect of a query expression, returning documents that do not match the query expression.
+Find students who do not have a grade of "A++".
+db.student.find({
+    grade: { $not: { $eq: "A++" } }
+})
+
+
+$nor
+The $nor operator is similar to $and, but it returns documents that fail to match both conditions.
+
+Find students who do not have marks greater than 85 or are not older than 21.
+
+db.student.find({
+    $nor: [
+        { marks: { $gt: 85 } },
+        { age: { $gt: 21 } }
+    ]
+})
+
+$or
+The $or operator is used to combine multiple conditions, and it returns documents that match any of the conditions.
+Find students who have marks greater than or equal to 90 or are younger than 18.
+
+db.student.find({
+    $or: [
+        { marks: { $gte: 90 } },
+        { age: { $lt: 18 } }
+    ]
+})
+
+Element Query Operators
+
+$exists
+The $exists operator is used to check whether a specified field exists in a document.
+Find students who have a grade field in their documents.
+
+db.student.find({
+    grade: { $exists: true }
+})
+
+
+$type
+The $type operator is used to select documents where the value of a field is of a specific type.
+Find students whose marks field is of type int (integer).
+
+db.student.find({
+    marks: { $type: "int" }
+})
+
+
+
+db.student.updateOne(
+    { name: "Hannah" },       
+    { $set: { grade: "A" } } 
+)
+
+//db.collection_name.updateMany(
+    {},                  
+    { $inc: { age: 1 } }
+)
+
+db.student.updateMany(
+    {}, 
+    { $set: { subject: "Maths" } }
+)
+
+db.student.findOneAndUpdate(
+    { name: "Frank" },            
+    { $set: { name: "Frank Frank" } }
+    
+)
+
+
+db.student.replaceOne(
+    { name: "Frank Frank" },    
+    { name: "Frank" }            
+)
+
+
+TASK 2 [DELETE]
+
+
+
+// Insert documents into the 'recipes' collection
+db.recipes.insertMany([
+  {
+    "name": "Spaghetti Carbonara",
+    "cuisine": "Italian",
+    "type": "non-veg",
+    "ingredients": ["spaghetti", "eggs", "parmesan cheese", "bacon"],
+    "prepTime": 20
+  },
+  {
+    "name": "Vegetable Curry",
+    "cuisine": "Indian",
+    "type": "veg",
+    "ingredients": ["potatoes", "carrots", "peas", "curry powder"],
+    "prepTime": 30
+  },
+  {
+    "name": "Chicken Caesar Salad",
+    "cuisine": "American",
+    "type": "non-veg",
+    "ingredients": ["chicken breast", "romaine lettuce", "croutons", "Caesar dressing"],
+    "prepTime": 15
+  },
+  {
+    "name": "Sushi Rolls",
+    "cuisine": "Japanese",
+    "type": "non-veg",
+    "ingredients": ["sushi rice", "seaweed", "fish", "vegetables"],
+    "prepTime": 45
+  },
+  {
+    "name": "Quinoa Salad",
+    "cuisine": "Mediterranean",
+    "type": "veg",
+    "ingredients": ["quinoa", "cucumber", "tomatoes", "feta cheese"],
+    "prepTime": 25
+  }
+]);
+
+//deleteOne
+db.recipes.deleteOne({ name: "Chicken Caesar Salad" });
+
+
+db.recipes.deleteMany({ type: "non-veg" });
+
+db.recipes.findOneAndDelete(
+  { name: "Vegetable Curry" }
+);
+
+
+
+//
+1. server
+2. router
+3. controller
+4. middleware
+5. model[database]
